@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Course Checker</title>
+</head>
+<body>
+<div>
+    <h2>Введите данные студента</h2>
+    <form method="post">
+        <label for="surname">Фамилия:</label><br>
+        <input type="text" id="surname" name="surname" required><br><br>
+
+        <label for="name">Имя:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="patronymic">Отчество:</label><br>
+        <input type="text" id="patronymic" name="patronymic" required><br><br>
+
+        <label for="group">Номер группы:</label><br>
+        <input type="text" id="group" name="group" placeholder="Например, НМТ-413901" required><br><br>
+
+        <input type="submit" value="Отправить">
+    </form>
+
+    {% if result %}
+        <h3>Результат:</h3>
+        <p>{{ result }}</p>
+    {% endif %}
+</div>
+</body>
+</html>
