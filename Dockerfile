@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY . .
 
 # Указываем порт, который будет слушать приложение
-EXPOSE 5000
+EXPOSE 6007
 
 # Задаём команду запуска Flask-приложения
 CMD ["python", "app.py"]
