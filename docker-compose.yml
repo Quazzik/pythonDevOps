@@ -15,11 +15,12 @@ services:
   python-app:
     build: .
     environment:
-      DATABASE_URL: postgres://user:password@db:5432/mydb
+      DATABASE_URL: postgresql://user:password@db:5432/mydb
     depends_on:
       - db
     ports:
-      - "8000:8000"
+      - "6007:6007"
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "app.py"]  # Ждем, пока база данных будет готова, прежде чем запускать Flask-приложение
 
 volumes:
   postgres_data:

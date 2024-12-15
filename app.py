@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # Получение строки подключения из переменной окружения DATABASE_URL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@db:5432/mydb'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://user:password@db:5432/mydb')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Отключаем отслеживание изменений
 
 # Инициализация базы данных
@@ -23,7 +23,6 @@ class Student(db.Model):
 
     def __repr__(self):
         return f"<Student {self.surname} {self.name}>"
-
 
 # Главная страница с формой
 @app.route('/', methods=['GET', 'POST'])
