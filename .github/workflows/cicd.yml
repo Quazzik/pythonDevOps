@@ -22,6 +22,8 @@ jobs:
       - name: Build Docker image
         run: docker compose up -d --build
 
+      - name: logging
+        run: docker logs db
       # Шаг 4: Проверка состояния контейнера PostgreSQL и перезапуск если нужно
       - name: Restart database if stopped
         run: |

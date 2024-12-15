@@ -4,5 +4,6 @@
     "\\.github",
     "\\.github\\workflows"
   ],
+  "SelectedNode": "\\.github\\workflows\\cicd.yml",
   "PreviewInSolutionExplorer": false
 }
