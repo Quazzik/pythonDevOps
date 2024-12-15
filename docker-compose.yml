@@ -20,7 +20,7 @@ services:
       - db
     ports:
       - "6007:6007"
-    command: ["bash", "-c", "./wait-for-it.sh db:5432 -- python app.py"]  # Используем bash для выполнения скрипта
+    command: ["bash", "-c", "./wait-for-it.sh db:5432 -- python app.py"]
 
 volumes:
   postgres_data:
