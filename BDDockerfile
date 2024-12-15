@@ -1,0 +1,15 @@
+# Используем официальный образ PostgreSQL как базовый
+FROM postgres:13
+
+# Устанавливаем дополнительные зависимости (если нужно)
+# RUN apt-get update && apt-get install -y <пакеты>
+
+# Копируем пользовательские скрипты (если они есть)
+# COPY ./init.sql /docker-entrypoint-initdb.d/
+
+# Если есть какие-то дополнительные настройки, добавьте их сюда
+
+# Можно добавить переменные окружения, если хотите переопределить их
+# ENV POSTGRES_USER user
+# ENV POSTGRES_PASSWORD password
+# ENV POSTGRES_DB mydb
