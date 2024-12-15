@@ -24,9 +24,6 @@ class Student(db.Model):
     def __repr__(self):
         return f"<Student {self.surname} {self.name}>"
 
-with app.app_context():
-    db.create_all()
-
 # Главная страница с формой
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -52,6 +49,11 @@ def index():
 
     return render_template('index.html', result=result)
 
+@app.route('/createTable', methods=['GET'])
+def createTable():
+    with app.app_context():
+        db.create_all()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=6007, debug=True)
+

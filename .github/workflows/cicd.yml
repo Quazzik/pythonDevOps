@@ -24,7 +24,7 @@ jobs:
 
       - name: logging
         run: |
-          sleep 20
+          sleep 11
           docker logs db
       # Шаг 4: Проверка состояния контейнера PostgreSQL и перезапуск если нужно
       - name: Restart database if stopped
@@ -50,6 +50,11 @@ jobs:
       - name: Wait for the API to be ready
         run: sleep 10
         
+      - name: CreateTabe
+        run: | 
+         curl -X GET http://127.0.0.1:6007/createTable
+         docker ps -a
+
       - name: logs1
         run: docker logs pythondevops-python-app-1
       # Шаг 7: Проверка доступности API
