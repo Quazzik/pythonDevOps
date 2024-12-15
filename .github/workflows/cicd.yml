@@ -18,6 +18,9 @@ jobs:
       - name: Build Docker image
         run: docker compose up -d --build
         
+      - name: Wait for API run
+        run: sleep 10
+
       - name: CreateTabe
         run: | 
          curl -X GET http://127.0.0.1:6007/createTable
