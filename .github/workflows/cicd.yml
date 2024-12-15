@@ -22,30 +22,31 @@ jobs:
       - name: Build Docker image
         run: docker compose up -d --build
 
-      # Шаг 4: Проверка доступности базы данных с выводом логов при проблемах
-      - name: Wait for database to be ready and check logs if failed
+      # Шаг 4: Проверка доступности базы данных
+      - name: Wait for database to be ready
         run: |
-          echo "Waiting for the database to be ready..."
-          for i in {1..30}; do
-            if curl --silent --fail db:5432; then
-              echo "Database is ready!"
-              break
-            else
-              echo "Attempt $i: Database not ready yet, checking logs..."
-              docker logs $(docker ps -q -f name=db) || echo "No logs found"
-              sleep 5
-            fi
+          until curl --silent --fail db:5432; do
+            echo "Waiting for database to be ready..."
+            sleep 2
           done
-          if ! curl --silent --fail db:5432; then
-            echo "Database is not ready after multiple attempts."
-            exit 1
-          fi
+          echo "Database is ready!"
 
-      # Шаг 5: Подождать, пока API будет готово
+      # Шаг 5: Проверка состояния контейнера PostgreSQL и перезапуск если нужно
+      - name: Restart database if stopped
+        run: |
+          container_status=$(docker inspect -f '{{.State.Status}}' $(docker ps -q --filter "name=db"))
+          if [[ "$container_status" == "exited" ]]; then
+            echo "Container is stopped, restarting..."
+            docker restart db
+            sleep 60  # Подождем немного, чтобы контейнер снова запустился
+          fi
+          echo "Container is running."
+
+      # Шаг 6: Подождать, пока API будет готово
       - name: Wait for the API to be ready
         run: sleep 10
 
-      # Шаг 6: Проверка доступности API
+      # Шаг 7: Проверка доступности API
       - name: Ping API
         run: |
           curl --fail http://127.0.0.1:6007 || exit 1
