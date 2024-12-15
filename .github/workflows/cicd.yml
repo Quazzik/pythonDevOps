@@ -14,57 +14,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Шаг 2: Проверка кода
-      - name: Echo Test
-        run: echo "Running basic tests!"
-
-      # Шаг 3: Сборка Docker образа (локальная проверка)
+      # Шаг 2: Сборка Docker образа (локальная проверка)
       - name: Build Docker image
         run: docker compose up -d --build
-
-      - name: logging
-        run: |
-          sleep 11
-          docker logs db
-      # Шаг 4: Проверка состояния контейнера PostgreSQL и перезапуск если нужно
-      - name: Restart database if stopped
-        run: |
-          container_status=$(docker inspect -f '{{.State.Status}}' $(docker ps -q --filter "name=db"))
-          if [[ "$container_status" == "exited" ]]; then
-            echo "Container is stopped, restarting..."
-            docker restart db
-            sleep 60  # Подождем немного, чтобы контейнер снова запустился
-          fi
-          echo "Container is running."
-
-      # Шаг 5: Проверка доступности базы данных
-      #- name: Wait for database to be ready
-       # run: |
-        #  until curl --silent --fail db:5432; do
-         #   echo "Waiting for database to be ready..."
-          #  sleep 2
-          #done
-          #echo "Database is ready!"
-
-      # Шаг 6: Подождать, пока API будет готово
-      - name: Wait for the API to be ready
-        run: sleep 10
         
       - name: CreateTabe
         run: | 
          curl -X GET http://127.0.0.1:6007/createTable
          docker ps -a
 
-      - name: logs1
-        run: docker logs pythondevops-python-app-1
-      # Шаг 7: Проверка доступности API
       - name: Ping API
         run: |
           curl -X GET --fail http://127.0.0.1:6007 || exit 1
           docker ps -a
 
       - name: Send data
-        run: curl --location 'http://127.0.0.1:6007' --form 'surname="rgef"' --form 'name="hyt"' --form 'patronymic="ikl.o,"' --form 'group="НМТ-113901"'
+        run: curl --location 'http://127.0.0.1:6007' --form 'surname="rgef"' --form 'name="hyt"' --form 'patronymic="ikl.o,"' --form 'group="НМТ-913901"'
 
       - name: get students
         run: curl -X GET http://127.0.0.1:6007/getStudents

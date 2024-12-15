@@ -67,7 +67,7 @@ def getData():
         'surname': student.surname,
         'name': student.name,
         'patronymic': student.patronymic,
-        'group_name': student.group_name
+        'group': student.group
     } for student in students])
 
 if __name__ == '__main__':
