@@ -54,7 +54,9 @@ jobs:
         run: docker logs pythondevops-python-app-1
       # Шаг 7: Проверка доступности API
       - name: Ping API
-        run: curl -X GET --fail http://127.0.0.1:6007 || exit 1
+        run: |
+          curl -X GET --fail http://127.0.0.1:6007 || exit 1
+          docker ps -a
           
       - name: logs1
         run: docker logs pythondevops-python-app-1
