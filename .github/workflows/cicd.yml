@@ -14,15 +14,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Шаг 2: Проверка кода (для отладки, можно заменить на более полные тесты)
-      - name: Echo Test
-        run: echo "Running basic tests!"
+      # Шаг 2: Установка Docker и Docker Compose
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl enable --now docker
 
-      # Шаг 3: Сборка Docker образа и запуск контейнеров
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+
+      # Шаг 3: Проверка версий Docker и Docker Compose
+      - name: Check Docker and Docker Compose version
+        run: |
+          docker --version
+          docker-compose --version
+
+      # Шаг 4: Сборка Docker образа и запуск контейнеров
       - name: Build and start Docker containers
         run: docker-compose up -d --build
 
-      # Шаг 4: Проверка доступности базы данных
+      # Шаг 5: Проверка доступности базы данных
       - name: Wait for database to be ready
         run: |
           echo "Waiting for PostgreSQL database to be ready..."
@@ -32,12 +46,12 @@ jobs:
           done
           echo "Database is ready!"
 
-      # Шаг 5: Проверка логов контейнера с базой данных
+      # Шаг 6: Проверка логов контейнера с базой данных
       - name: Check PostgreSQL logs
         run: |
           docker logs $(docker ps -q -f name=your_project_name_db) || exit 1
 
-      # Шаг 6: Подождать, пока API будет готово
+      # Шаг 7: Подождать, пока API будет готово
       - name: Wait for API to be ready
         run: |
           echo "Waiting for the API to be ready..."
@@ -47,17 +61,17 @@ jobs:
           done
           echo "API is ready!"
 
-      # Шаг 7: Проверка доступности API
+      # Шаг 8: Проверка доступности API
       - name: Ping API
         run: |
           curl --fail http://127.0.0.1:6007 || exit 1
 
-      # Шаг 8: Проверка логов контейнера с приложением
+      # Шаг 9: Проверка логов контейнера с приложением
       - name: Check Python app logs
         run: |
           docker logs $(docker ps -q -f name=your_project_name_python-app) || exit 1
 
-      # Шаг 9: Проверка состояния контейнеров
+      # Шаг 10: Проверка состояния контейнеров
       - name: Check container status
         run: |
           docker ps -a
