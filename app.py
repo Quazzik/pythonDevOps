@@ -54,6 +54,22 @@ def createTable():
     with app.app_context():
         db.create_all()
 
+@app.route('/getStudents', methods=['GET'])
+def getData():
+    students = Student.query.all()
+
+    if not students:
+        return jsonify({"message": "No students found"}), 404
+
+    # Возвращаем студентов в виде JSON
+    return jsonify([{
+        'id': student.id,
+        'surname': student.surname,
+        'name': student.name,
+        'patronymic': student.patronymic,
+        'group_name': student.group_name
+    } for student in students])
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=6007, debug=True)
 

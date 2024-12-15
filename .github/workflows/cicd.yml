@@ -62,6 +62,9 @@ jobs:
         run: |
           curl -X GET --fail http://127.0.0.1:6007 || exit 1
           docker ps -a
-          
+
       - name: Send data
         run: curl --location 'http://127.0.0.1:6007' --form 'surname="rgef"' --form 'name="hyt"' --form 'patronymic="ikl.o,"' --form 'group="НМТ-113901"'
+
+      - name: get students
+        run: curl -X GET http://127.0.0.1:6007/getStudents
