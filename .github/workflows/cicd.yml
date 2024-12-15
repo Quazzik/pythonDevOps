@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - worked
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,28 +14,66 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Шаг 2: Проверка кода
-      - name: Echo Test
-        run: echo "Running basic tests!"
+      # Шаг 2: Установка Docker и Docker Compose
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl enable --now docker
 
-      # Шаг 3: Сборка Docker образа (локальная проверка)
-      - name: Build Docker image
-        run: docker compose up -d --build
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
-      # Шаг 4: Проверка доступности базы данных
+      # Шаг 3: Проверка версий Docker и Docker Compose
+      - name: Check Docker and Docker Compose version
+        run: |
+          docker --version
+          docker-compose --version
+
+      # Шаг 4: Сборка Docker образа и запуск контейнеров
+      - name: Build and start Docker containers
+        run: docker-compose up -d --build
+
+      # Шаг 5: Проверка доступности базы данных с помощью pg_isready
       - name: Wait for database to be ready
         run: |
-          until curl --silent --fail db:5432; do
-            echo "Waiting for database to be ready..."
+          echo "Waiting for PostgreSQL database to be ready..."
+          until docker exec -t $(docker ps -q -f name=your_project_name_db) pg_isready -U user -h db; do
+            echo "Database is not ready, waiting..."
+            docker logs $(docker ps -q -f name=your_project_name_db)
             sleep 2
           done
           echo "Database is ready!"
 
-      # Шаг 5: Подождать, пока API будет готово
-      - name: Wait for the API to be ready
-        run: sleep 10
+      # Шаг 6: Проверка логов контейнера базы данных (если база данных не доступна)
+      - name: Check PostgreSQL logs (if database not ready)
+        run: |
+          echo "Checking logs for database container..."
+          docker logs $(docker ps -q -f name=your_project_name_db) || exit 1
 
-      # Шаг 6: Проверка доступности API
+      # Шаг 7: Подождать, пока API будет готово
+      - name: Wait for API to be ready
+        run: |
+          echo "Waiting for the API to be ready..."
+          until curl --silent --fail http://127.0.0.1:6007; do
+            echo "API is not ready, waiting..."
+            sleep 2
+          done
+          echo "API is ready!"
+
+      # Шаг 8: Проверка доступности API
       - name: Ping API
         run: |
           curl --fail http://127.0.0.1:6007 || exit 1
+
+      # Шаг 9: Проверка логов контейнера с приложением
+      - name: Check Python app logs
+        run: |
+          docker logs $(docker ps -q -f name=your_project_name_python-app) || exit 1
+
+      # Шаг 10: Проверка состояния контейнеров
+      - name: Check container status
+        run: |
+          docker ps -a
