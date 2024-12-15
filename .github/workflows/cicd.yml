@@ -22,15 +22,24 @@ jobs:
       - name: Build Docker image
         run: docker compose up -d --build
 
-      # Шаг 4: Проверка доступности базы данных
-      - name: Wait for database to be ready
+      # Шаг 4: Проверка доступности базы данных с выводом логов при проблемах
+      - name: Wait for database to be ready and check logs if failed
         run: |
-          until curl --silent --fail db:5432; do
-            echo "Waiting for database to be ready..."
-            docker logs $(docker ps -q -f name=your_project_name_db)
-            sleep 2
+          echo "Waiting for the database to be ready..."
+          for i in {1..30}; do
+            if curl --silent --fail db:5432; then
+              echo "Database is ready!"
+              break
+            else
+              echo "Attempt $i: Database not ready yet, checking logs..."
+              docker logs $(docker ps -q -f name=db) || echo "No logs found"
+              sleep 5
+            fi
           done
-          echo "Database is ready!"
+          if ! curl --silent --fail db:5432; then
+            echo "Database is not ready after multiple attempts."
+            exit 1
+          fi
 
       # Шаг 5: Подождать, пока API будет готово
       - name: Wait for the API to be ready
