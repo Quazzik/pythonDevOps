@@ -11,10 +11,6 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\pythonDevOps\\requirements.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:requirements.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\pythonDevOps\\app.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
@@ -40,26 +36,14 @@
               "RelativeDocumentMoniker": ".github\\workflows\\cicd.yml",
               "ToolTip": "D:\\pythonDevOps\\.github\\workflows\\cicd.yml",
               "RelativeToolTip": ".github\\workflows\\cicd.yml",
-              "ViewState": "AgIAABEAAAAAAAAAAAAgwCMAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwBkAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
               "WhenOpened": "2024-12-15T10:45:54.034Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "requirements.txt",
-              "DocumentMoniker": "D:\\pythonDevOps\\requirements.txt",
-              "RelativeDocumentMoniker": "requirements.txt",
-              "ToolTip": "D:\\pythonDevOps\\requirements.txt",
-              "RelativeToolTip": "requirements.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-12-15T09:24:02.783Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Dockerfile",
               "DocumentMoniker": "D:\\pythonDevOps\\Dockerfile",
               "RelativeDocumentMoniker": "Dockerfile",
@@ -77,13 +61,14 @@
               "RelativeDocumentMoniker": "docker-compose.yml",
               "ToolTip": "D:\\pythonDevOps\\docker-compose.yml",
               "RelativeToolTip": "docker-compose.yml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2024-12-15T09:09:47.898Z"
+              "WhenOpened": "2024-12-15T09:09:47.898Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "app.py",
               "DocumentMoniker": "D:\\pythonDevOps\\app.py",
               "RelativeDocumentMoniker": "app.py",
