@@ -58,5 +58,5 @@ jobs:
           curl -X GET --fail http://127.0.0.1:6007 || exit 1
           docker ps -a
           
-      - name: logs1
-        run: docker logs pythondevops-python-app-1
+      - name: Send data
+        run: curl --location 'http://127.0.0.1:6007' --form 'surname="rgef"' --form 'name="hyt"' --form 'patronymic="ikl.o,"' --form 'group="НМТ-113901"'
