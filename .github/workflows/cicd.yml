@@ -22,8 +22,20 @@ jobs:
       - name: Build Docker image
         run: docker compose up -d --build
 
-      - name: Wait for the API to be ready
-        run: sleep 10  # Подождите 10 секунд перед выполнением запроса
+      # Шаг 4: Проверка доступности базы данных
+      - name: Wait for database to be ready
+        run: |
+          until curl --silent --fail db:5432; do
+            echo "Waiting for database to be ready..."
+            sleep 2
+          done
+          echo "Database is ready!"
 
+      # Шаг 5: Подождать, пока API будет готово
+      - name: Wait for the API to be ready
+        run: sleep 10
+
+      # Шаг 6: Проверка доступности API
       - name: Ping API
-        run: curl -X GET http://127.0.0.1:6007/
+        run: |
+          curl --fail http://127.0.0.1:6007 || exit 1
