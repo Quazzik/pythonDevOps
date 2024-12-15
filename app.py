@@ -24,6 +24,9 @@ class Student(db.Model):
     def __repr__(self):
         return f"<Student {self.surname} {self.name}>"
 
+with app.app_context():
+    db.create_all()
+
 # Главная страница с формой
 @app.route('/', methods=['GET', 'POST'])
 def index():

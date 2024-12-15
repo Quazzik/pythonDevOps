@@ -12,7 +12,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/init-db/init.sql
     command: ["postgres", "-c", "log_statement=all", "-c", "log_duration=on"]
 
   python-app:
