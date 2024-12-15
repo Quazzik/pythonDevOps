@@ -4,6 +4,6 @@
     "\\.github",
     "\\.github\\workflows"
   ],
-  "SelectedNode": "\\app.py",
+  "SelectedNode": "\\.github\\workflows\\cicd.yml",
   "PreviewInSolutionExplorer": false
 }
