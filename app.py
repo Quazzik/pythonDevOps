@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # Получение строки подключения из переменной окружения DATABASE_URL
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgres://user:password@localhost:5432/mydb')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@db:5432/mydb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Отключаем отслеживание изменений
 
 # Инициализация базы данных
