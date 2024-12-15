@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - worked2
 
 jobs:
   build-and-deploy:
@@ -27,6 +27,7 @@ jobs:
         run: |
           until curl --silent --fail db:5432; do
             echo "Waiting for database to be ready..."
+            docker logs $(docker ps -q -f name=your_project_name_db)
             sleep 2
           done
           echo "Database is ready!"
