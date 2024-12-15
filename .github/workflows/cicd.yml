@@ -22,16 +22,7 @@ jobs:
       - name: Build Docker image
         run: docker compose up -d --build
 
-      # Шаг 4: Проверка доступности базы данных
-      - name: Wait for database to be ready
-        run: |
-          until curl --silent --fail db:5432; do
-            echo "Waiting for database to be ready..."
-            sleep 2
-          done
-          echo "Database is ready!"
-
-      # Шаг 5: Проверка состояния контейнера PostgreSQL и перезапуск если нужно
+      # Шаг 4: Проверка состояния контейнера PostgreSQL и перезапуск если нужно
       - name: Restart database if stopped
         run: |
           container_status=$(docker inspect -f '{{.State.Status}}' $(docker ps -q --filter "name=db"))
@@ -41,6 +32,15 @@ jobs:
             sleep 60  # Подождем немного, чтобы контейнер снова запустился
           fi
           echo "Container is running."
+
+      # Шаг 5: Проверка доступности базы данных
+      - name: Wait for database to be ready
+        run: |
+          until curl --silent --fail db:5432; do
+            echo "Waiting for database to be ready..."
+            sleep 2
+          done
+          echo "Database is ready!"
 
       # Шаг 6: Подождать, пока API будет готово
       - name: Wait for the API to be ready

@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": ".github\\workflows\\cicd.yml",
               "ToolTip": "D:\\pythonDevOps\\.github\\workflows\\cicd.yml",
               "RelativeToolTip": ".github\\workflows\\cicd.yml",
-              "ViewState": "AgIAABEAAAAAAAAAAAAgwCgAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwCMAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
               "WhenOpened": "2024-12-15T10:45:54.034Z",
               "EditorCaption": ""
@@ -79,8 +79,7 @@
               "RelativeToolTip": "docker-compose.yml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2024-12-15T09:09:47.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-15T09:09:47.898Z"
             },
             {
               "$type": "Document",
