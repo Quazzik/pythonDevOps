@@ -53,4 +53,4 @@ jobs:
       # Шаг 7: Проверка доступности API
       - name: Ping API
         run: |
-          curl --fail http://127.0.0.1:6007 || exit 1
+          curl -X GET --fail http://127.0.0.1:6007 || exit 1
