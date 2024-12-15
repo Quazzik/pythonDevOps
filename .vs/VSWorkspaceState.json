@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\.github",
-    "\\.github\\workflows"
+    "\\.github\\workflows",
+    "\\init-db"
   ],
-  "SelectedNode": "\\app.py",
+  "SelectedNode": "\\init-db\\init.sql",
   "PreviewInSolutionExplorer": false
 }
