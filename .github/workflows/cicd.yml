@@ -32,7 +32,7 @@ jobs:
           docker ps -a
 
       - name: Send data
-        run: curl --location 'http://127.0.0.1:6007' --form 'surname="rgef"' --form 'name="hyt"' --form 'patronymic="ikl.o,"' --form 'group="НМТ-913901"'
+        run: curl --location 'http://127.0.0.1:6007' --form 'surname="Водопьяно"' --form 'name="Виктор"' --form 'patronymic="Анатольевич"' --form 'group="НМТ-413901"'
 
       - name: get students
         run: curl -X GET http://127.0.0.1:6007/getStudents

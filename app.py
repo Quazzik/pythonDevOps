@@ -2,17 +2,16 @@ from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-# Инициализация Flask-приложения
 app = Flask(__name__)
 
 # Получение строки подключения из переменной окружения DATABASE_URL
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://user:password@db:5432/mydb')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Отключаем отслеживание изменений
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Инициализация базы данных
 db = SQLAlchemy(app)
 
-# Модель для таблицы студентов
+# Модель студентов для базы данных
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     surname = db.Column(db.String(80), nullable=False)
@@ -61,7 +60,6 @@ def getData():
     if not students:
         return jsonify({"message": "No students found"}), 404
 
-    # Возвращаем студентов в виде JSON
     return jsonify([{
         'id': student.id,
         'surname': student.surname,
